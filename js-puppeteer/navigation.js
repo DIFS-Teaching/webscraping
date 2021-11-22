@@ -10,16 +10,19 @@ const puppeteer = require('puppeteer');
     await page.waitForTimeout(5000);
 
     // Find the right iframe
-    const frame = page.mainFrame().childFrames().find(frame => frame.name() === 'live-iframe');
+    //const frame = page.mainFrame().childFrames().find(frame => frame.title() === 'results');
+    const frame = page.mainFrame().childFrames()[0];
     if (!frame) {
         console.log('frame not found!');
         process.exit(1);
     }
     
     // "Individual ranking" link selector
-    const rankingLinkSelector = '.leader-part .ranking-type-link';
+    const rankingLinkSelector = '.leader-part a.ranking-type-link';
     await frame.waitForSelector(rankingLinkSelector);
-    await frame.click(rankingLinkSelector);
+    //await frame.click(rankingLinkSelector, {delay: 100, clickCount: 10});
+    const href = await frame.$eval(rankingLinkSelector, e => e.href);
+    await frame.goto(href);
     
     // result table selector
     const tableRowSelector = '#object-rankings > .uci-table-wrapper > table > tbody > tr'; 

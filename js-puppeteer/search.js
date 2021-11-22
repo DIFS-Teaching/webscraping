@@ -44,7 +44,7 @@ const puppeteer = require('puppeteer');
   console.log('clicked');
 
   // Wait for the results page to load and display the results.
-  const resultsSelector = '.gsc-results .gsc-thumbnail-inside a.gs-title';
+  const resultsSelector = '.gsc-webResult .gsc-result a.gs-title';
   await page.waitForSelector(resultsSelector);
 
   // Extract the results from the page.

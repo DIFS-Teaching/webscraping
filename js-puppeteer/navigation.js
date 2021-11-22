@@ -2,8 +2,8 @@ const puppeteer = require('puppeteer');
 
 (async () => {
     const browser = await puppeteer.launch({
-        headless: true
-        //slowMo: 250 // slow down by 250ms
+        headless: false,
+        slowMo: 250 // slow down by 250ms
     });
     const page = await browser.newPage();
     await page.goto('https://www.uci.org/road/rankings');

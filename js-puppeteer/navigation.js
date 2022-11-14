@@ -9,9 +9,14 @@ const puppeteer = require('puppeteer');
     await page.goto('https://www.uci.org/road/rankings');
     await page.waitForTimeout(5000);
 
+    // accept cookies
+    console.log('accept cookies');
+    await page.click('#cookiescript_accept');
+    
     // Find the right iframe
-    //const frame = page.mainFrame().childFrames().find(frame => frame.title() === 'results');
-    const frame = page.mainFrame().childFrames()[0];
+    const frame = await page.frames().find(frame => frame.url() === 'https://dataride.uci.ch/iframe/rankings/10');
+    //const frame = await page.mainFrame().childFrames()[0];
+    console.log('Frame: ' + frame.url());
     if (!frame) {
         console.log('frame not found!');
         process.exit(1);

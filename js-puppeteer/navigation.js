@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 
 (async () => {
     const browser = await puppeteer.launch({
+        args: ['--window-size=1600,1200', '--no-sandbox', '--disable-setuid-sandbox'],
         headless: false,
         slowMo: 250 // slow down by 250ms
     });
@@ -14,8 +15,9 @@ const puppeteer = require('puppeteer');
     await page.click('#cookiescript_accept');
     
     // Find the right iframe
-    const frame = await page.frames().find(frame => frame.url() === 'https://dataride.uci.ch/iframe/rankings/10');
-    //const frame = await page.mainFrame().childFrames()[0];
+    console.log('Frames:', page.frames());
+    //const frame = await page.frames().find(frame => frame.url() === 'https://dataride.uci.ch/iframe/rankings/10');
+    const frame = await page.mainFrame().childFrames()[1];
     console.log('Frame: ' + frame.url());
     if (!frame) {
         console.log('frame not found!');

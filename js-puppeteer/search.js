@@ -27,7 +27,7 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({
         headless: false,
         slowMo: 250, // slow down by 250ms
-        args: [`--window-size=1600,1200`],
+        args: ['--window-size=1600,1200', '--no-sandbox', '--disable-setuid-sandbox'],
         defaultViewport: null
     });
   const page = await browser.newPage();

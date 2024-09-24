@@ -5,8 +5,8 @@ public class Courses {
 	
 	public static void main(String[] args) {
 		try {
-			URL url = new URL("https://www.fit.vut.cz/study/courses/");
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			URI url = new URI("https://www.fit.vut.cz/study/courses/");
+			HttpURLConnection con = (HttpURLConnection) url.toURL().openConnection();
 			
 			BufferedReader in = new BufferedReader(
 					  new InputStreamReader(con.getInputStream()));

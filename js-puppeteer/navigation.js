@@ -8,17 +8,17 @@ const puppeteer = require('puppeteer');
     });
     const page = await browser.newPage();
     await page.goto('https://www.uci.org/road/rankings');
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(2000);
 
     // accept cookies
     console.log('accept cookies');
     await page.click('#cookiescript_accept');
     
     // Find the right iframe
-    console.log('Frames:', page.frames());
-    //const frame = await page.frames().find(frame => frame.url() === 'https://dataride.uci.ch/iframe/rankings/10');
-    const frame = await page.mainFrame().childFrames()[1];
-    console.log('Frame: ' + frame.url());
+    for (const frame of page.frames()) {
+        console.log('URL: ' + frame.url(), 'Name: ' + frame.name(), 'Title: ' + await frame.title());
+    }
+    const frame = page.frames().find(frame => frame.url() === 'https://dataride.uci.ch/iframe/rankings/10');
     if (!frame) {
         console.log('frame not found!');
         process.exit(1);
